@@ -1,0 +1,16 @@
+# =================================================================
+# PROFILES: PROD
+# ==================================================================
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 3000m # 세션타임아웃 ==1800s
+
+spring:
+  config.activate.on-profile: prod
+  datasource:
+    driver-class-name:
+    url:
+    username:
+    password:
