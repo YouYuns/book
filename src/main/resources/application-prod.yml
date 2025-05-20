@@ -14,3 +14,8 @@ spring:
     url:
     username:
     password:
+
+
+logging:
+  level:
+    com.shop.book: info #todo 패키지수정

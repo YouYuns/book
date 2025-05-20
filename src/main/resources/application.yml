@@ -19,19 +19,34 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: true # ???? sql
+    show-sql: true # 콘솔  sql
     properties:
       hibernate:
-        format_sql: true # ??? sql format ??
-        default_batch_fetch_size: 500 # ??? ??? ??? in ??? ??? ?? ???
-    open-in-view: false # ??? ????? ?? ??? ???? ??? ??
+        format_sql: true # 콘솔 sql format
+        default_batch_fetch_size: 500 # SQL N+1문제를 해결할수 있게 IN조건으로 넣는다 ONE TO MANY일경우
+    open-in-view: false # 영속성 컨텍스트 생존 범위를 트랜잭션 범위로 한정시킨다
 
   servlet:
     multipart:
-      max-file-size: 10MB # ?? ??? ??? ??? ????? 10MB? ??
-      max-request-size: 100MB # ?? ??? ?? ? ?? ?? ???? 100MB? ??
+      max-file-size: 10MB # 파일 업로드시 한개 최대값 10MB
+      max-request-size: 100MB # 파일 한번에 업로드 최대값 100MB
 
 
 logging:
   level:
-    org.hibernate.type: trace #???? ??? ????? ? ? ?? ?? ??
+    org.hibernate.type: trace #
+    com.shop.book: debug #todo 패키지수정
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+
+kakao:
+  client:
+    id: abfbb860627b22b71420275247e397b2
+    secret: zzE1pn74QqhpWuiyOJAyLyluZB47v1Nh
+
