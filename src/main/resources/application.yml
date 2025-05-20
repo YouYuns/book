@@ -6,13 +6,13 @@ server:
   servlet:
     context-path: /
     session:
-      timeout: 3000m # ?????? ==1800s
+      timeout: 3000m #1800s
 
 spring:
   config.activate.on-profile: local
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/book_mall?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://localhost:3306/book_mall
     username: bookDb
     password: tkdlemqnr@1
 

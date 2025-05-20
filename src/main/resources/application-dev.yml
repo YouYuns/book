@@ -9,7 +9,7 @@ server:
       timeout: 3000m
 
 spring:
-  config.activate.on-profile: local
+  config.activate.on-profile: dev
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/book_mall?characterEncoding=UTF-8&serverTimezone=UTC

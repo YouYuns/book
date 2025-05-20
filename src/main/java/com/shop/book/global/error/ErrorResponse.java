@@ -11,7 +11,6 @@ import java.util.List;
 
 @Getter
 @Builder
-@RequiredArgsConstructor
 public class ErrorResponse{
     private String errorCode;
     private String errorMessage;
