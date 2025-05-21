@@ -50,3 +50,10 @@ kakao:
     id: abfbb860627b22b71420275247e397b2
     secret: zzE1pn74QqhpWuiyOJAyLyluZB47v1Nh
 
+token:
+  secret: ENC(9c9uJh1XDJMe72tcz8o94Z1pqQxRrUdKaxFAlScPFuIGZtp57tFR3Q==) # 임의의 문자열
+  access-token-expiration-time: 900000  # 15분 1000(ms) x 60(s) x 15(m)
+  refresh-token-expiration-time: 1209600000 # 1주 1000(ms) x 60 (s) x 60(m) x 24(h) x 14(d) * 7(d)
+
+
+

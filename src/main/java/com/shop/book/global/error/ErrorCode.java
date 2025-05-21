@@ -16,6 +16,8 @@ public enum ErrorCode {
     // 401 Unauthorized
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "요구되는 인증 정보가 누락되었거나 잘못됨"),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "INVALID_TOKEN", "Access Token이 잘못된 경우"),
+    TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "TOKEN_EXPIRED", "Token 기간 만료"),
+    NOT_VALID_TOKEN(HttpStatus.UNAUTHORIZED, "NOT_VALID_TOKEN", "유효한 Token 아닐 경우"),
 
     // 403 Forbidden
     FORBIDDEN(HttpStatus.FORBIDDEN, "FORBIDDEN", "요청은 이해했지만 권한이 없어 거부됨"),
@@ -37,7 +39,8 @@ public enum ErrorCode {
     DELETED(HttpStatus.GONE, "DELETED", "요청한 리소스가 삭제되어 존재하지 않음"),
 
     // 500 Internal Server Error
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR", "서버 내부 오류 발생"),
+    USER_NOT_FOUND(HttpStatus.INTERNAL_SERVER_ERROR, "USER_NOT_FOUND", "유저 정보가 존재하지 않습니다."),
+    PAASSWORD_NOT_MATCH(HttpStatus.INTERNAL_SERVER_ERROR, "PAASSWORD_NOT_MATCH", "유저 패스워드가 일치하지 않습니다."),
 
     // 503 Service Unavailable
     SERVICE_UNAVAILABLE(HttpStatus.SERVICE_UNAVAILABLE, "SERVICE_UNAVAILABLE", "일시적인 서버 오류");
