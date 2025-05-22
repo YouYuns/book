@@ -1,5 +1,7 @@
 package com.shop.book.global.config.oauth;
 
+import com.shop.book.domain.member.constant.OAuthType;
+
 import java.util.Map;
 
 public class NaverResponse implements OAuth2Response{
@@ -10,8 +12,8 @@ public class NaverResponse implements OAuth2Response{
     }
 
     @Override
-    public String getProvider() {
-        return "naver";
+    public OAuthType getProvider() {
+        return OAuthType.NAVER;
     }
 
     @Override

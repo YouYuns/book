@@ -1,4 +1,4 @@
-package com.shop.book.global.config;
+package com.shop.book.global.config.security;
 
 
 import com.shop.book.global.config.oauth.CustomOAuth2UserService;
