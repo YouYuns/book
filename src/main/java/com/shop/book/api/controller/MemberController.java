@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class MemberController {
 
+    private static final String path = "/member";
     private final MemberService memberService;
-    @PostMapping("/signup")
+    @PostMapping(path = path + "/signup")
     public ResponseEntity memberSignup(@RequestBody MemberDto memberDto){
         memberService.memberSignup(memberDto);
         return ResponseEntity.ok(200);
     }
 
-    @PostMapping("/login")
+    @PostMapping(path = path + "/login")
     public ResponseEntity memberLogin(MemberDto.MemberLoginReqDto memberLoginReqDto){
         memberService.memberLogin(memberLoginReqDto);
         return ResponseEntity.ok(200);
