@@ -1,5 +1,6 @@
 package com.shop.book.global.config.security;
 
+import com.shop.book.domain.member.dto.MemberDto;
 import com.shop.book.domain.member.entity.Member;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
