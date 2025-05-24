@@ -1,6 +1,6 @@
 package com.shop.book.global.jwt;
 
-import com.shop.book.api.repository.MemberRepository;
+import com.shop.book.domain.member.entity.Member;
 import com.shop.book.global.config.security.CustomUserDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -9,11 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -23,8 +21,6 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
-
-    private final MemberRepository memberRepository;
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
@@ -70,12 +66,20 @@ public class JwtFilter extends OncePerRequestFilter {
         for (Cookie cookie : cookies) {
 
             System.out.println(cookie.getName());
-            if (cookie.getName().equals("Authorization")) {
-
-                authorization = cookie.getValue();
+            if (cookie.getName().equals("AccessToken")) {
+                if ("AccessToken".equals(cookie.getName())) {
+                    authorization = cookie.getValue();
+                    break;
+                }
             }
         }
-
+        // 2. 헤더에서도 읽기 (Bearer 토큰)
+        if (authorization == null || authorization.isBlank()) {
+            String bearerToken = request.getHeader("Authorization");
+            if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+                authorization = bearerToken.substring(7);
+            }
+        }
         //Authorization 헤더 검증
         if (authorization == null) {
 
@@ -100,11 +104,10 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         //토큰에서 email 획득
-        String email = jwtUtil.getEmail(token);
+        Member member = jwtUtil.getMember(token);
 
         //UserDetails에 회원 정보 객체 담기
-        CustomUserDetails customOAuth2User =  new CustomUserDetails(memberRepository.findByEmail(email)
-                                                                  .orElseThrow(() -> new UsernameNotFoundException("Not Found USER")));
+        CustomUserDetails customOAuth2User =  new CustomUserDetails(member);
 
         //스프링 시큐리티 인증 토큰 생성
         Authentication authToken = new UsernamePasswordAuthenticationToken(customOAuth2User, null, customOAuth2User.getAuthorities());

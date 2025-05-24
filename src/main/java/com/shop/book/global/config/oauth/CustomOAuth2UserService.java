@@ -1,11 +1,10 @@
 package com.shop.book.global.config.oauth;
 
 
-import com.shop.book.api.repository.MemberRepository;
+import com.shop.book.api.member.repository.MemberRepository;
 import com.shop.book.domain.member.constant.MemberStatus;
 import com.shop.book.domain.member.constant.OAuthType;
 import com.shop.book.domain.member.constant.Role;
-import com.shop.book.domain.member.dto.MemberDto;
 import com.shop.book.domain.member.entity.Member;
 import com.shop.book.global.config.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;

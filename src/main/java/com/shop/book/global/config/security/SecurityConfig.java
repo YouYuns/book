@@ -1,7 +1,7 @@
 package com.shop.book.global.config.security;
 
 
-import com.shop.book.api.repository.MemberRepository;
+import com.shop.book.api.member.repository.MemberRepository;
 import com.shop.book.global.config.oauth.CustomOAuth2SuccessHandler;
 import com.shop.book.global.config.oauth.CustomOAuth2UserService;
 import com.shop.book.global.jwt.CustomAccessDeniedHandler;
@@ -42,10 +42,11 @@ public class SecurityConfig {
                 //form 로그인 방식 disalbe
                 .formLogin(AbstractHttpConfigurer::disable)
 
+
                 //http basic 인증 방식 disable
                 .httpBasic(AbstractHttpConfigurer::disable)
                 //JwtFilter 추가
-                .addFilterBefore(new JwtFilter(jwtUtil, memberRepository), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
                 //JwtAuthentication Exception Hadling
                 .exceptionHandling(authenticationManager -> authenticationManager
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())

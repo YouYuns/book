@@ -1,6 +1,6 @@
 package com.shop.book.global.config.security;
 
-import com.shop.book.api.repository.MemberRepository;
+import com.shop.book.api.member.repository.MemberRepository;
 import com.shop.book.domain.member.constant.OAuthType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,17 +1,16 @@
-package com.shop.book.api.controller;
+package com.shop.book.api.member.controller;
 
-import com.shop.book.api.service.MemberService;
+import com.shop.book.api.member.service.MemberService;
 import com.shop.book.domain.member.dto.MemberDto;
 import com.shop.book.global.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.ParseException;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,7 +27,7 @@ public class MemberController {
     }
 
     @PostMapping(path = path + "/login")
-    public ResponseEntity memberLogin(@RequestBody  MemberDto.MemberLoginReqDto memberLoginReqDto){
+    public ResponseEntity memberLogin(@RequestBody  MemberDto.MemberLoginReqDto memberLoginReqDto) throws ParseException {
         memberService.memberLogin(memberLoginReqDto);
         return ResponseEntity.ok(200);
     }

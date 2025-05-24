@@ -45,8 +45,9 @@ feign:
         readTimeout: 5000
 
   jwt:
-    secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbal  # 임의의 문자열
-
+    secret: j6H7vRvXmvqMhOcUQstYjAb648Nkr2dDMFn
+    expiration-time: 3600000 # 1시간: 1 * 60 * 60 * 1000 = 3600000
+    refresh-expiration-time: 10800000 # 3시간: 3 * 60 * 60 * 1000 = 3600000
 
   security:
     oauth2:

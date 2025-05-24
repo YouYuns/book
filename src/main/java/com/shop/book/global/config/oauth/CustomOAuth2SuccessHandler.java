@@ -3,6 +3,7 @@ package com.shop.book.global.config.oauth;
 import com.shop.book.domain.member.entity.Member;
 import com.shop.book.global.config.security.CustomUserDetails;
 import com.shop.book.global.jwt.JwtUtil;
+import com.shop.book.global.jwt.JwtDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
@@ -31,7 +33,6 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
             //OAuth2User
             CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
             Member member = customUserDetails.getUser();
-            String email = member.getEmail();
 
             //Jwt 토큰생성 Oauth2 로그인 성공시
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -41,9 +42,17 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
             System.out.println("OAuth2 jwt 토큰생성 Handler Role => " + role);
 
-            String token = jwtUtil.createJwt(email);
+            String accessToken = null;
+            String refreshToken = null;
+            try {
+                accessToken = jwtUtil.createAccessToken(member);
+                refreshToken = jwtUtil.createRefreshToken(member);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
 
-            response.addCookie(createCookie("Authorization", token));
+            response.addCookie(createCookie("AccessToken", accessToken));
+            response.addCookie(createCookie("RefreshToken", refreshToken));
 
             //ROLE에 따른 redirect
             Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());

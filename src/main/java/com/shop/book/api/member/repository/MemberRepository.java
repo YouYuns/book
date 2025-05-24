@@ -1,4 +1,4 @@
-package com.shop.book.api.repository;
+package com.shop.book.api.member.repository;
 
 import com.shop.book.domain.member.constant.OAuthType;
 import com.shop.book.domain.member.entity.Member;
