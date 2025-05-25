@@ -35,17 +35,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public ResponseEntity<?> memberLogin(MemberDto.MemberLoginReqDto memberLoginReqDto) throws ParseException {
-        System.out.println(memberLoginReqDto.getEmail());
-        System.out.println(passwordEncoder.encode(memberLoginReqDto.getPassword()));
-        System.out.println("이메일");
         Member member = memberRepository.findByEmail(memberLoginReqDto.getEmail()).orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
         if (!passwordEncoder.matches(memberLoginReqDto.getPassword(), member.getPassword())){
             throw new BusinessException(ErrorCode.PAASSWORD_NOT_MATCH);
         }
-        System.out.println("여기는들어오나요");
         JwtDto token = jwtUtil.createTokens(member);
-        System.out.println(token);
-        System.out.println("로그인토큰");
         MemberDto.MemberLoginResDto memberLoginResDto = new MemberDto.MemberLoginResDto(member);
         return new ResponseEntity<>(new ResponseDto<>(1, "로그인 성공", token), HttpStatus.OK);
     }

@@ -35,4 +35,6 @@ public class MemberController {
     public ResponseEntity memberLogin(@RequestBody  MemberDto.MemberLoginReqDto memberLoginReqDto) throws ParseException {
         return memberService.memberLogin(memberLoginReqDto);
     }
+    //todo 이메일 인증 api 필요하고
+    //todo 주소 검색 api 프론트?
 }

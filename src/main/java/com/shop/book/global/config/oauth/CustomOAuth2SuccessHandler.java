@@ -51,17 +51,17 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
                 throw new RuntimeException(e);
             }
 
-            response.addCookie(createCookie("AccessToken", accessToken));
-            response.addCookie(createCookie("RefreshToken", refreshToken));
+//            response.addCookie(createCookie("AccessToken", accessToken));
+//            response.addCookie(createCookie("RefreshToken", refreshToken));
 
             //ROLE에 따른 redirect
             Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
            if (roles.contains("ROLE_ADMIN")) {
-                response.sendRedirect("/admin");
+                response.sendRedirect("/admin?accessToken=" + accessToken + "&refreshToken=" + refreshToken);
             } else if (roles.contains("ROLE_SELLER")) {
-                response.sendRedirect("/seller");
+                response.sendRedirect("/seller?accessToken=" + accessToken + "&refreshToken=" + refreshToken);
             } else {
-                response.sendRedirect("/"); // 일반 사용자의 경우 메인 페이지로
+                response.sendRedirect("/?accessToken=" + accessToken + "&refreshToken=" + refreshToken); // 일반 사용자의 경우 메인 페이지로
             }
         }else {
             response.sendRedirect("/");

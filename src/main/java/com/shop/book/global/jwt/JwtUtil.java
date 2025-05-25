@@ -11,6 +11,7 @@ import com.shop.book.global.error.ErrorCode;
 import com.shop.book.global.error.exception.BusinessException;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -19,17 +20,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Optional;
-import java.util.Set;
 
 @Slf4j
 @Component
@@ -101,13 +98,7 @@ public class JwtUtil {
 
     public String createAccessToken(Member member) throws ParseException {
         Date now = new Date();
-        System.out.println(now.getTime());
-        System.out.println(expirationTime);
-
-        System.out.println("여기2222");
         Date expiryDate = new Date(now.getTime() + expirationTime);
-        System.out.println(expiryDate);
-        System.out.println("여기111");
         // JWT access token 생성
         return Jwts.builder()
                 .claim("email", member.getEmail())
