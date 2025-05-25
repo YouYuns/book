@@ -1,5 +1,6 @@
 package com.shop.book.global.config.security;
 
+import com.shop.book.domain.member.constant.MemberStatus;
 import com.shop.book.domain.member.dto.MemberDto;
 import com.shop.book.domain.member.entity.Member;
 import lombok.Getter;
@@ -21,7 +22,7 @@ public class CustomUserDetails extends User implements OAuth2User {
     private Member member; // Member 참조 추가
     private Long userId;
     private String password;
-    private String status;
+    private MemberStatus status;
     private String phoneNumber;
     private String birthDate;
     private String gender;

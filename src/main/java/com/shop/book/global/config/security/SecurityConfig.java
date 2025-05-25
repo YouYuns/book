@@ -29,13 +29,12 @@ public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
     private final JwtUtil jwtUtil;
-    private final MemberRepository memberRepository;
-    private final CorsConfigurationSource corsConfigurationSource;
+    private final CorsConfig corsConfig;
     @Bean
     public SecurityFilterChain defaultFilterChain(HttpSecurity http) throws Exception {
         http
                 // 새로운 방식으로 CORS 설정 적용
-                .cors(cors -> cors.configurationSource(corsConfigurationSource))
+                .cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource()))
                 //csrf disable
                 .csrf(AbstractHttpConfigurer::disable)
 
@@ -54,7 +53,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authorize -> authorize
                                 // 공개 접근 허용 URL 설정
-                                .requestMatchers("/" ).permitAll()
+                                .requestMatchers("/" , "/api/member/login").permitAll()
                                 .requestMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
 //                        .requestMatchers("/seller/**").hasRole("SELLER")

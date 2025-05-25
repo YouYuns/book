@@ -12,7 +12,7 @@ spring:
   config.activate.on-profile: local
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/book_mall
+    url: jdbc:mariadb://localhost:3306/book_mall?characterEncoding=utf8mb4&useUnicode=true&serverTimezone=Asia/Seoul
     username: bookDb
     password: tkdlemqnr@1
 
@@ -25,6 +25,7 @@ spring:
         format_sql: true # 콘솔 sql format
         default_batch_fetch_size: 500 # SQL N+1문제를 해결할수 있게 IN조건으로 넣는다 ONE TO MANY일경우
     open-in-view: false # 영속성 컨텍스트 생존 범위를 트랜잭션 범위로 한정시킨다
+    defer-datasource-initialization: true
 
   servlet:
     multipart:
@@ -32,17 +33,17 @@ spring:
       max-request-size: 100MB # 파일 한번에 업로드 최대값 100MB
 
 
-logging:
-  level:
-    org.hibernate.type: trace #
-    com.shop.book: debug #todo 패키지수정
+  logging:
+    level:
+      org.hibernate.type: trace #
+      com.shop.book: debug #todo 패키지수정
 
-feign:
-  client:
-    config:
-      default:
-        connectTimeout: 5000
-        readTimeout: 5000
+  feign:
+    client:
+      config:
+        default:
+          connectTimeout: 5000
+          readTimeout: 5000
 
   jwt:
     secret: j6H7vRvXmvqMhOcUQstYjAb648Nkr2dDMFn
@@ -55,8 +56,8 @@ feign:
         registration:
           naver:
             client-name: naver
-            client-id:
-            client-secret:
+            client-id: BO0lqPYslVr6MlDBNNgC
+            client-secret: DoL03vOF3D
             redirect-uri: http://localhost:8080/oauth/naver/callback
             authorization-grant-type: authorization_code
             scope: name,email, profile

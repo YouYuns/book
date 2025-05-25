@@ -35,9 +35,9 @@ import java.util.Set;
 @Component
 public class JwtUtil {
 
-    private final SecretKey secretKey;
-    private final String expirationTime;
-    private final String refreshExpirationTime;
+    private final SecretKey secretKey ;
+    private final Long expirationTime;
+    private final Long refreshExpirationTime;
 
     private final CustomUserDetailsService customUserDetailsService;
 
@@ -47,15 +47,15 @@ public class JwtUtil {
 
 
     public JwtUtil(
-            @Value("${jwt.secret-key}") String key,
-            @Value("${jwt.expiration-time}") String expirationTime,
-            @Value("${jwt.refresh-expiration-time}") String refreshExpirationTime,
+            @Value("${spring.jwt.secret}") String secret,
+            @Value("${spring.jwt.expiration-time}") Long expirationTime,
+            @Value("${spring.jwt.refresh-expiration-time}") Long refreshExpirationTime,
             CustomUserDetailsService customUserDetailsService, MemberRepository memberRepository, RefreshTokenRepository refreshTokenRepository) {
         this.customUserDetailsService = customUserDetailsService;
         this.memberRepository = memberRepository;
         this.refreshTokenRepository = refreshTokenRepository;
-        String secret = Base64.getEncoder().encodeToString(key.getBytes());
-        this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
+        secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8),
+                Jwts.SIG.HS256.key().build().getAlgorithm());
         this.expirationTime = expirationTime;
         this.refreshExpirationTime = refreshExpirationTime;
     }
@@ -100,15 +100,21 @@ public class JwtUtil {
     }
 
     public String createAccessToken(Member member) throws ParseException {
-        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date();
+        System.out.println(now.getTime());
+        System.out.println(expirationTime);
 
+        System.out.println("여기2222");
+        Date expiryDate = new Date(now.getTime() + expirationTime);
+        System.out.println(expiryDate);
+        System.out.println("여기111");
         // JWT access token 생성
         return Jwts.builder()
                 .claim("email", member.getEmail())
                 .claim("name", member.getMemberName())
                 .claim("roles", member.getRoles())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(transFormat.parse(System.currentTimeMillis() + expirationTime))
+                .expiration(expiryDate)
                 .signWith(secretKey)
                 .compact();// builder에서 최종적으로 JWT string 생성
     }
@@ -118,18 +124,17 @@ public class JwtUtil {
         // 토큰의 subject가 user의 Email로 저장되므로 loadUserByUsername()의 인자로 넘기기
 //        Member member = (Member) customUserDetailsService.loadUserByUsername(accessToken);
         // 해당 유저에 대해 refresh token 조회
-        Optional<RefreshToken> refreshTokenByUser = refreshTokenRepository.findByEmail(member.getEmail());
+        Optional<RefreshToken> refreshTokenByUser = refreshTokenRepository.findByMemberEmail(member.getEmail());
 
         // refresh token이 이미 존재하는 경우
         if(refreshTokenByUser.isPresent())
             return refreshTokenByUser.get().getRefreshToken(); // 해당 refresh token 반환
 
         // refresh token이 존재하지 않으므로 refresh token 생성
-        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date refreshValidity = new Date(new Date().getTime() + refreshExpirationTime); // refreshToken 만료 기간 설정
         String refreshToken = Jwts.builder()
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(transFormat.parse(String.valueOf(refreshValidity)))
+                .expiration(refreshValidity)
                 .signWith(secretKey)
                 .compact(); // 최종 JWT string 생성
 

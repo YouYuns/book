@@ -1,0 +1,1 @@
+insert into member ( email, member_name, password ) values ('tjdgh0312@naver.com', '윤성호', '$2a$14$FMo92OobgMW8skXr5VclYupzBIRCWu2qGJXD5I8J5kdAXtZro.e82');

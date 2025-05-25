@@ -2,6 +2,8 @@ package com.shop.book.api.member.controller;
 
 import com.shop.book.api.member.service.MemberService;
 import com.shop.book.domain.member.dto.MemberDto;
+import com.shop.book.global.error.ErrorCode;
+import com.shop.book.global.error.exception.BusinessException;
 import com.shop.book.global.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +24,15 @@ public class MemberController {
     private final JwtUtil jwtUtil;
     @PostMapping(path = path + "/signup")
     public ResponseEntity memberSignup(@RequestBody MemberDto memberDto){
+        if (memberService.isEmailDuplicate(memberDto.getEmail())) {
+            throw new BusinessException(ErrorCode.USER_DUPLICATE);
+        }
         memberService.memberSignup(memberDto);
         return ResponseEntity.ok(200);
     }
 
     @PostMapping(path = path + "/login")
     public ResponseEntity memberLogin(@RequestBody  MemberDto.MemberLoginReqDto memberLoginReqDto) throws ParseException {
-        memberService.memberLogin(memberLoginReqDto);
-        return ResponseEntity.ok(200);
+        return memberService.memberLogin(memberLoginReqDto);
     }
 }

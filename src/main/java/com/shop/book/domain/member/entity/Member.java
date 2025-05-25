@@ -14,8 +14,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@SequenceGenerator(name = "GENERATOR_MEMBER",
-        sequenceName = "SEQ_MEMBER", initialValue = 1001, allocationSize = 1)
+//ORACLE
+//@SequenceGenerator(name = "GENERATOR_MEMBER",
+//        sequenceName = "SEQ_MEMBER", initialValue = 1001, allocationSize = 1)
 @Table(name ="MEMBER")
 @Getter
 @Builder(toBuilder = true)
@@ -26,13 +27,16 @@ public class Member extends BaseEntity {
 
     //사용자 ID
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GENERATOR_MEMBER")
+    //ORACLE
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GENERATOR_MEMBER")
+    //MYSQL
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //OAuth타입
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    private OAuthType oAuthType;
+    private OAuthType oauthType;
 
     //이메일 -> 로그인 ID로 사용
     @Column(unique = true, length = 50, nullable = false)
@@ -44,11 +48,11 @@ public class Member extends BaseEntity {
 
 
     // 핸드폰번호
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String phoneNumber;
 
     // 성별
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String gender;
 
     //사용자이름
@@ -56,15 +60,15 @@ public class Member extends BaseEntity {
     private String memberName;
 
     // 생년월일
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String birthDate;
 
     // 우편번호
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String postcode;
 
     // 주소
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String address;
 
     // 공동현관 비밀번호
@@ -72,11 +76,11 @@ public class Member extends BaseEntity {
     private String entrance;
 
     // 참고항목
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String extraAddress;
 
     // 상세주소
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String detailAddress;
 
     //사용자사진
@@ -86,7 +90,7 @@ public class Member extends BaseEntity {
     // 회원상태
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    private String status;
+    private MemberStatus status;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
@@ -95,27 +99,9 @@ public class Member extends BaseEntity {
     @Column(name = "role")
     private Set<Role> roles = new HashSet<Role>();
 
-
-    @Column(length = 250)
-    private String refreshToken;
-
-    private LocalDateTime tokenExpirationTime;
-
-
     public Member addRole(Role role){
         roles.add(role);
         return this;
     }
 
-
-    public MemberDto toDto(){
-        return MemberDto.builder()
-                .email(email)
-                .password(password)
-                .memberName(memberName)
-                .oAuthType(oAuthType)
-                .status(status)
-                .roles(roles)
-                .build();
-    }
 }

@@ -66,7 +66,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .email(email)
                 .memberName(name)
                 .password(passwordEncoder.encode(String.valueOf(System.currentTimeMillis())))
-                .oAuthType(type)
+                .oauthType(type)
                 .gender("미입력")
                 .phoneNumber("미입력")
                 .birthDate("미입력")
@@ -74,7 +74,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .address("미입력")
                 .extraAddress("미입력")
                 .detailAddress("미입력")
-                .status(MemberStatus.ACTIVE.typeName())
+                .status(MemberStatus.ACTIVE)
                 .build()
                 .addRole(Role.USER);
 

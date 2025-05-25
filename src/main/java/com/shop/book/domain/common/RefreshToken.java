@@ -11,10 +11,19 @@ import java.util.Date;
 @Getter
 @Entity
 @NoArgsConstructor
+//ORACLE
+//@SequenceGenerator(
+//        name = "GENERATOR_REFRESH_TOKEN",
+//        sequenceName = "SEQ_REFRESH_TOKEN",
+//        initialValue = 1,
+//        allocationSize = 1
+//)
 public class RefreshToken {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GENERATOR_MEMBER")
+    //ORACLE
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GENERATOR_REFRESH_TOKEN")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)

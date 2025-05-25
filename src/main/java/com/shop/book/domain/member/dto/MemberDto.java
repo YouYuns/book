@@ -1,6 +1,7 @@
 package com.shop.book.domain.member.dto;
 
 
+import com.shop.book.domain.member.constant.MemberStatus;
 import com.shop.book.domain.member.constant.OAuthType;
 import com.shop.book.domain.member.constant.Role;
 import com.shop.book.domain.member.entity.Member;
@@ -47,8 +48,8 @@ public class MemberDto {
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .memberName(memberName)
-                .oAuthType(oAuthType)
-                .status(status)
+                .oauthType(oAuthType)
+                .status(MemberStatus.ACTIVE)
                 .roles(roles)
                 .build();
     }

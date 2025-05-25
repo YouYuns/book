@@ -32,7 +32,7 @@ public class JwtFilter extends OncePerRequestFilter {
             return true;
         }
         // /api/member/로 시작하는 요청은 필터를 타지 않도록 설정
-        if (path.startsWith("/api/member/")) {
+        if (path.startsWith("/api/member/*")) {
             return true;
         }
         // todo book만들떄 url체크 수정필요 바뀌면
@@ -63,13 +63,15 @@ public class JwtFilter extends OncePerRequestFilter {
         //cookie들을 불러온 뒤 Authorization Key에 담긴 쿠키를 찾음
         String authorization = null;
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
+        if(cookies !=null ) {
+            for (Cookie cookie : cookies) {
 
-            System.out.println(cookie.getName());
-            if (cookie.getName().equals("AccessToken")) {
-                if ("AccessToken".equals(cookie.getName())) {
-                    authorization = cookie.getValue();
-                    break;
+                System.out.println(cookie.getName());
+                if (cookie.getName().equals("AccessToken")) {
+                    if ("AccessToken".equals(cookie.getName())) {
+                        authorization = cookie.getValue();
+                        break;
+                    }
                 }
             }
         }

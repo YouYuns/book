@@ -9,4 +9,6 @@ public interface MemberService {
     void memberSignup(MemberDto memberDto);
 
     ResponseEntity<?> memberLogin(MemberDto.MemberLoginReqDto memberLoginReqDto) throws ParseException;
+
+    boolean isEmailDuplicate(String email);
 }
