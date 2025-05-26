@@ -45,6 +45,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(HttpStatus.INTERNAL_SERVER_ERROR, "USER_NOT_FOUND", "유저 정보가 존재하지 않습니다."),
     PAASSWORD_NOT_MATCH(HttpStatus.INTERNAL_SERVER_ERROR, "PAASSWORD_NOT_MATCH", "유저 패스워드가 일치하지 않습니다."),
     USER_DUPLICATE(HttpStatus.INTERNAL_SERVER_ERROR, "USER_DUPLICATE" , "이미 같은 이메일로 가입되어있습니다"),
+    NOT_BOOK_DETAIL_INFO(HttpStatus.INTERNAL_SERVER_ERROR, "NOT_BOOK_DETAIL_INFO","도서 정보를 가져오는 중 오류가 발생했습니다." ),
 
     // 503 Service Unavailable
     SERVICE_UNAVAILABLE(HttpStatus.SERVICE_UNAVAILABLE, "SERVICE_UNAVAILABLE", "일시적인 서버 오류");
