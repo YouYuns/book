@@ -1,4 +1,4 @@
-package com.shop.book.domain.member.dto;
+package com.shop.book.domain.common.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,15 +1,13 @@
 package com.shop.book.domain.member.entity;
 
 
-import com.shop.book.domain.common.BaseEntity;
+import com.shop.book.domain.common.domain.BaseEntity;
 import com.shop.book.domain.member.constant.MemberStatus;
 import com.shop.book.domain.member.constant.OAuthType;
 import com.shop.book.domain.member.constant.Role;
-import com.shop.book.domain.member.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 

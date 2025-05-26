@@ -1,7 +1,6 @@
 package com.shop.book.api.token.repository;
 
-import com.shop.book.domain.common.RefreshToken;
-import com.shop.book.domain.member.entity.Member;
+import com.shop.book.domain.common.domain.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

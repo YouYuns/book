@@ -3,15 +3,12 @@ package com.shop.book.global.jwt;
 
 import com.shop.book.api.member.repository.MemberRepository;
 import com.shop.book.api.token.repository.RefreshTokenRepository;
-import com.shop.book.domain.common.RefreshToken;
-import com.shop.book.domain.member.constant.Role;
+import com.shop.book.domain.common.domain.RefreshToken;
 import com.shop.book.domain.member.entity.Member;
 import com.shop.book.global.config.security.CustomUserDetailsService;
 import com.shop.book.global.error.ErrorCode;
 import com.shop.book.global.error.exception.BusinessException;
 import io.jsonwebtoken.*;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

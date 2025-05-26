@@ -4,7 +4,7 @@ import com.shop.book.api.member.repository.MemberRepository;
 import com.shop.book.api.member.service.MemberService;
 import com.shop.book.domain.member.constant.Role;
 import com.shop.book.domain.member.dto.MemberDto;
-import com.shop.book.domain.member.dto.ResponseDto;
+import com.shop.book.domain.common.dto.ResponseDto;
 import com.shop.book.domain.member.entity.Member;
 import com.shop.book.global.error.ErrorCode;
 import com.shop.book.global.error.exception.BusinessException;
@@ -13,7 +13,6 @@ import com.shop.book.global.jwt.JwtDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

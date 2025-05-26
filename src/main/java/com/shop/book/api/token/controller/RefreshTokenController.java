@@ -2,9 +2,7 @@ package com.shop.book.api.token.controller;
 
 
 import com.shop.book.api.token.service.RefreshTokenService;
-import com.shop.book.api.token.dto.RefreshToeknRequestDto;
-import com.shop.book.domain.member.dto.ResponseDto;
-import jakarta.validation.Valid;
+import com.shop.book.domain.common.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
