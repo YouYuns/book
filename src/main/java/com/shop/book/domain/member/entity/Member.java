@@ -2,6 +2,7 @@ package com.shop.book.domain.member.entity;
 
 
 import com.shop.book.domain.common.domain.BaseEntity;
+import com.shop.book.domain.common.domain.Image;
 import com.shop.book.domain.member.constant.MemberStatus;
 import com.shop.book.domain.member.constant.OAuthType;
 import com.shop.book.domain.member.constant.Role;
@@ -81,10 +82,6 @@ public class Member extends BaseEntity {
 //    @Column(nullable = false)
     private String detailAddress;
 
-    //사용자사진
-    @Column(length = 200)
-    private String profile;
-
     // 회원상태
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
@@ -96,6 +93,10 @@ public class Member extends BaseEntity {
     @Builder.Default
     @Column(name = "role")
     private Set<Role> roles = new HashSet<Role>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_image_id", referencedColumnName = "id")
+    private Image profileImage;
 
     public Member addRole(Role role){
         roles.add(role);

@@ -4,6 +4,7 @@ import com.shop.book.api.book.service.BookService;
 import com.shop.book.domain.book.dto.BookDetailDto;
 import com.shop.book.domain.book.dto.BookDto;
 import com.shop.book.domain.book.dto.BookSearchResponseDto;
+import com.shop.book.domain.book.dto.BookSearchXmlResponse;
 import com.shop.book.global.error.ErrorCode;
 import com.shop.book.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class BookController {
 
     //도서 상세 정보
     @GetMapping("/detail/{isbn}")
-    public BookDetailDto detail(@PathVariable("isbn") String isbn)  {
+    public BookSearchXmlResponse.Item detail(@PathVariable("isbn") String isbn)  {
         return bookService.getBookDetailByIsbn(isbn);
     }
 }

@@ -3,12 +3,18 @@ package com.shop.book.api.book.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.book.api.book.service.BookService;
-import com.shop.book.domain.book.domain.Book;
 import com.shop.book.domain.book.dto.*;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Unmarshaller;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -60,10 +66,44 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDetailDto getBookDetailByIsbn(String isbn) {
+    public BookSearchXmlResponse.Item getBookDetailByIsbn(String isbn) {
         System.out.println("Fetching book details for ISBN: " + isbn);
         String url = "https://openapi.naver.com/v1/search/book_adv.xml?d_isbn=" + isbn;
-        return null;
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Naver-Client-Id", clientId);
+        headers.set("X-Naver-Client-Secret", clientSecret);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                String xmlResponse = response.getBody();
+
+                JAXBContext jaxbContext = JAXBContext.newInstance(BookSearchXmlResponse.class);
+                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                StringReader reader = new StringReader(xmlResponse);
+
+                BookSearchXmlResponse bookSearchXmlResponse = (BookSearchXmlResponse) unmarshaller.unmarshal(reader);
+
+                if (!bookSearchXmlResponse.getChannel().getItems().isEmpty()) {
+                    BookSearchXmlResponse.Item item = bookSearchXmlResponse.getChannel().getItems().get(0);
+
+                    return item;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     private BookDto convertToBookDto(NaverBookItem naverBookItem) {
