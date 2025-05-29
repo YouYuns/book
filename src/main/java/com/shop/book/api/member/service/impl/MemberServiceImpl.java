@@ -5,6 +5,7 @@ import com.shop.book.api.member.service.MemberService;
 import com.shop.book.domain.member.constant.Role;
 import com.shop.book.domain.member.dto.MemberDto;
 import com.shop.book.domain.common.dto.ResponseDto;
+import com.shop.book.domain.member.dto.MemberEmailSendDto;
 import com.shop.book.domain.member.entity.Member;
 import com.shop.book.global.error.ErrorCode;
 import com.shop.book.global.error.exception.BusinessException;
@@ -46,4 +47,13 @@ public class MemberServiceImpl implements MemberService {
     public boolean isEmailDuplicate(String email) {
         return memberRepository.findByEmail(email).isPresent();
     }
+
+    @Override
+    public ResponseEntity memberSendEmail(MemberEmailSendDto memberEmailSendDto) {
+
+        // todo create 랜덤 번호 생성
+        return null;
+    }
+
+
 }

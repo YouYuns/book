@@ -56,10 +56,14 @@ dependencies {
 	//thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+	//smtp
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	//jackson Json <-> Object
 	implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.2'
 	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.1'
 	implementation 'org.glassfish.jaxb:jaxb-xjc:4.0.2'
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'

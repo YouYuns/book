@@ -2,6 +2,7 @@ package com.shop.book.api.member.controller;
 
 import com.shop.book.api.member.service.MemberService;
 import com.shop.book.domain.member.dto.MemberDto;
+import com.shop.book.domain.member.dto.MemberEmailSendDto;
 import com.shop.book.global.error.ErrorCode;
 import com.shop.book.global.error.exception.BusinessException;
 import com.shop.book.global.jwt.JwtUtil;
@@ -36,5 +37,10 @@ public class MemberController {
         return memberService.memberLogin(memberLoginReqDto);
     }
     //todo 이메일 인증 api 필요하고
+    @PostMapping(path = path + "/sendEmail")
+    public ResponseEntity memberSendEmail(@RequestBody  MemberEmailSendDto memberEmailSendDto) throws ParseException {
+        return memberService.memberSendEmail(memberEmailSendDto);
+    }
     //todo 주소 검색 api 프론트?
+
 }
