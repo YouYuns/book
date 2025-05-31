@@ -6,6 +6,7 @@ import com.shop.book.domain.member.dto.MemberEmailSendDto;
 import com.shop.book.global.error.ErrorCode;
 import com.shop.book.global.error.exception.BusinessException;
 import com.shop.book.global.jwt.JwtUtil;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,8 +40,12 @@ public class MemberController {
     //todo 이메일 인증 api 필요하고
     @PostMapping(path = path + "/sendEmail")
     public ResponseEntity memberSendEmail(@RequestBody  MemberEmailSendDto memberEmailSendDto) throws ParseException {
-        return memberService.memberSendEmail(memberEmailSendDto);
+        MimeMessage mimeMessage= memberService.memberSendEmail(memberEmailSendDto);
+        return ResponseEntity.ok(mimeMessage);
     }
+
+
+
     //todo 주소 검색 api 프론트?
 
 }

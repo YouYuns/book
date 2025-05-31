@@ -2,6 +2,7 @@ package com.shop.book.api.member.service;
 
 import com.shop.book.domain.member.dto.MemberDto;
 import com.shop.book.domain.member.dto.MemberEmailSendDto;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.http.ResponseEntity;
 
 import java.text.ParseException;
@@ -13,5 +14,6 @@ public interface MemberService {
 
     boolean isEmailDuplicate(String email);
 
-    ResponseEntity memberSendEmail(MemberEmailSendDto memberEmailSendDto);
+    MimeMessage memberSendEmail(MemberEmailSendDto memberEmailSendDto);
+
 }

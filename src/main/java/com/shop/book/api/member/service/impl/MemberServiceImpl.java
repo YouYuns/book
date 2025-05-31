@@ -11,13 +11,19 @@ import com.shop.book.global.error.ErrorCode;
 import com.shop.book.global.error.exception.BusinessException;
 import com.shop.book.global.jwt.JwtUtil;
 import com.shop.book.global.jwt.JwtDto;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -28,6 +34,12 @@ public class MemberServiceImpl implements MemberService {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtUtil jwtUtil;
+
+    private final JavaMailSender javaMailSender;
+
+    private static final String senderEmail = "tjdgh0312@gmail.com";
+
+    private static final Map<String, Integer> verificationCodes = new HashMap<>();
     @Override
     public void memberSignup(MemberDto memberDto) {
         memberRepository.save(memberDto.toEntity(passwordEncoder).addRole(Role.USER));
@@ -48,11 +60,26 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByEmail(email).isPresent();
     }
 
-    @Override
-    public ResponseEntity memberSendEmail(MemberEmailSendDto memberEmailSendDto) {
 
-        // todo create 랜덤 번호 생성
-        return null;
+    /**
+     * 이메일 전송
+     */
+    @Override
+    public MimeMessage memberSendEmail(MemberEmailSendDto memberEmailSendDto){
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setFrom(senderEmail);
+            helper.setTo(memberEmailSendDto.getEmaill());
+            helper.setSubject("이메일 인증번호");
+            String body = "<h2>Book Shop에 오신걸 환영합니다!</h2><h3>아래의 인증번호를 입력하세요.</h3><h1>" + verificationCodes.get(memberEmailSendDto.getEmaill()) + "</h1><h3>감사합니다.</h3>";
+            helper.setText(body, true);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        return message;
     }
 
 
