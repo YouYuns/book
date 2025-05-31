@@ -44,12 +44,13 @@ spring:
         default:
           connectTimeout: 5000
           readTimeout: 5000
-
+#Jwt
   jwt:
     secret: j6H7vRvXmvqMhOcUQstYjAb648Nkr2dDMFn
     expiration-time: 3600000 # 1시간: 1 * 60 * 60 * 1000 = 3600000
     refresh-expiration-time: 10800000 # 3시간: 3 * 60 * 60 * 1000 = 3600000
 
+#Security
   security:
     oauth2:
       client:
@@ -98,7 +99,13 @@ spring:
           writetimeout: 5000
     auth-code-expiration-millis: 1800000  # 30 * 60 * 1000 == 30?
 
+#Redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
+# NAVER OPEN API
 naver:
   openapi:
     clientId: QocgT6zFnXgn__nZ_Jt5

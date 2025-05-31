@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
 
     private static final String senderEmail = "tjdgh0312@gmail.com";
 
-    private static final Map<String, Integer> verificationCodes = new HashMap<>();
+    private static final Map<String, String> verificationCodes = new HashMap<>();
     @Override
     public void memberSignup(MemberDto memberDto) {
         memberRepository.save(memberDto.toEntity(passwordEncoder).addRole(Role.USER));
@@ -66,6 +66,7 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public MimeMessage memberSendEmail(MemberEmailSendDto memberEmailSendDto){
+        authRandomCode(memberEmailSendDto.getEmaill());
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
@@ -81,6 +82,18 @@ public class MemberServiceImpl implements MemberService {
 
         return message;
     }
+    //todo 인증번호 확인 Redis 코드로 바꿀예정
+    // 6자리 랜덤코드 생성
+    public static String authRandomCode(String email) {
+        StringBuilder sb = new StringBuilder();
 
-
+        for(int i = 0; i < 6; i++) {
+            if(Math.random() < 0.5) {
+                sb.append( (char)((int)(Math.random() * 10) + '0') );
+            } else {
+                sb.append( (char)((int)(Math.random() * 26) + 'A') );
+            }
+        }
+        return verificationCodes.put(email, sb.toString());
+    }
 }
