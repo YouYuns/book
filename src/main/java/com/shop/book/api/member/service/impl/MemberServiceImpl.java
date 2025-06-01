@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
@@ -39,7 +40,7 @@ public class MemberServiceImpl implements MemberService {
 
     private static final String senderEmail = "tjdgh0312@gmail.com";
 
-    private static final Map<String, String> verificationCodes = new HashMap<>();
+    private int authNumber;
     @Override
     public void memberSignup(MemberDto memberDto) {
         memberRepository.save(memberDto.toEntity(passwordEncoder).addRole(Role.USER));
@@ -66,7 +67,7 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public MimeMessage memberSendEmail(MemberEmailSendDto memberEmailSendDto){
-        authRandomCode(memberEmailSendDto.getEmaill());
+        makeRandomNumber();
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
@@ -74,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
             helper.setFrom(senderEmail);
             helper.setTo(memberEmailSendDto.getEmaill());
             helper.setSubject("이메일 인증번호");
-            String body = "<h2>Book Shop에 오신걸 환영합니다!</h2><h3>아래의 인증번호를 입력하세요.</h3><h1>" + verificationCodes.get(memberEmailSendDto.getEmaill()) + "</h1><h3>감사합니다.</h3>";
+            String body = "<h2>Book Shop에 오신걸 환영합니다!</h2><h3>아래의 인증번호를 입력하세요.</h3><h1>" + authNumber + "</h1><h3>감사합니다.</h3>";
             helper.setText(body, true);
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -84,16 +85,13 @@ public class MemberServiceImpl implements MemberService {
     }
     //todo 인증번호 확인 Redis 코드로 바꿀예정
     // 6자리 랜덤코드 생성
-    public static String authRandomCode(String email) {
-        StringBuilder sb = new StringBuilder();
-
+    public void makeRandomNumber() {
+        Random r = new Random();
+        String randomNumber = "";
         for(int i = 0; i < 6; i++) {
-            if(Math.random() < 0.5) {
-                sb.append( (char)((int)(Math.random() * 10) + '0') );
-            } else {
-                sb.append( (char)((int)(Math.random() * 26) + 'A') );
-            }
+            randomNumber += Integer.toString(r.nextInt(10));
         }
-        return verificationCodes.put(email, sb.toString());
+
+        this.authNumber = Integer.parseInt(randomNumber);
     }
 }
