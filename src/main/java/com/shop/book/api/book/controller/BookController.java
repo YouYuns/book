@@ -35,8 +35,7 @@ public class BookController {
     public BookSearchXmlResponse.Item detail(@PathVariable("isbn") String isbn)  {
         return bookService.getBookDetailByIsbn(isbn);
     }
-    
-    //도서 추천을 정보 국립도서관 OPEN API사용예정
+
 
 
 }

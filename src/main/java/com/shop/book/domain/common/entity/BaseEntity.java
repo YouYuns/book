@@ -1,4 +1,4 @@
-package com.shop.book.domain.common.domain;
+package com.shop.book.domain.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

@@ -3,7 +3,7 @@ package com.shop.book.global.jwt;
 
 import com.shop.book.api.member.repository.MemberRepository;
 import com.shop.book.api.token.repository.RefreshTokenRepository;
-import com.shop.book.domain.common.domain.RefreshToken;
+import com.shop.book.domain.common.entity.RefreshToken;
 import com.shop.book.domain.member.entity.Member;
 import com.shop.book.global.config.security.CustomUserDetailsService;
 import com.shop.book.global.error.ErrorCode;

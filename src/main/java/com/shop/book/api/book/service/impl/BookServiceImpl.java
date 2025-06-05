@@ -6,6 +6,7 @@ import com.shop.book.api.book.service.BookService;
 import com.shop.book.domain.book.dto.*;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
@@ -27,6 +29,8 @@ import java.util.stream.Collectors;
 
 
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
     @Value("${naver.openapi.clientId}")

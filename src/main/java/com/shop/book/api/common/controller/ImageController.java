@@ -1,7 +1,7 @@
 package com.shop.book.api.common.controller;
 
 import com.shop.book.api.common.service.ImageService;
-import com.shop.book.domain.common.domain.Image;
+import com.shop.book.domain.common.entity.Image;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

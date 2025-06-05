@@ -2,10 +2,9 @@ package com.shop.book.api.common.service.impl;
 
 import com.shop.book.api.common.repository.ImageRepository;
 import com.shop.book.api.common.service.ImageService;
-import com.shop.book.domain.common.domain.Image;
+import com.shop.book.domain.common.entity.Image;
 import com.shop.book.global.util.FileUploadUtils;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;

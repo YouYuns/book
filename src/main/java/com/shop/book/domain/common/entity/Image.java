@@ -1,4 +1,4 @@
-package com.shop.book.domain.common.domain;
+package com.shop.book.domain.common.entity;
 
 import com.shop.book.domain.member.entity.Member;
 import jakarta.persistence.*;

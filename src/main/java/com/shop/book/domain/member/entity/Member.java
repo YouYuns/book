@@ -1,8 +1,8 @@
 package com.shop.book.domain.member.entity;
 
 
-import com.shop.book.domain.common.domain.BaseEntity;
-import com.shop.book.domain.common.domain.Image;
+import com.shop.book.domain.common.entity.BaseEntity;
+import com.shop.book.domain.common.entity.Image;
 import com.shop.book.domain.member.constant.MemberStatus;
 import com.shop.book.domain.member.constant.OAuthType;
 import com.shop.book.domain.member.constant.Role;
@@ -30,7 +30,7 @@ public class Member extends BaseEntity {
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GENERATOR_MEMBER")
     //MYSQL
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
 
     //OAuth타입
     @Enumerated(EnumType.STRING)

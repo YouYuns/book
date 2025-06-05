@@ -1,4 +1,4 @@
-package com.shop.book.domain.category.domain;
+package com.shop.book.domain.category.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

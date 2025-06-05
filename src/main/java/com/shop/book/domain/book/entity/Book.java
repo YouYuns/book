@@ -1,6 +1,6 @@
-package com.shop.book.domain.book.domain;
+package com.shop.book.domain.book.entity;
 
-import com.shop.book.domain.category.domain.Category;
+import com.shop.book.domain.category.entity.Category;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -19,7 +19,7 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //도서번호
+    private Long bookId; //도서번호
 
     @ManyToOne // FK 단방향
     @JoinColumn(name = "id", nullable = true)
