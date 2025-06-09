@@ -20,6 +20,7 @@ public class OrderServiceImpl implements OrderService {
     public void findUserOrderProcess(CustomUserDetails user) {
        Long memberId =  user.getUserId();
 
+       //내가 주문한 목록
         List<MemberOrderDto> memberOrderDtos = orderRepository.findByMemberIdOrders(memberId);
 
 
